@@ -10,6 +10,8 @@ export type Provider =
   | ComponentClass<any>
   | typeof Component
 
+export type Providers = Array<Provider | [Provider, Record<string, unknown>]>
+
 export type FlatProvidersProps = PropsWithChildren<{
-  providers: Array<Provider | [Provider, Record<string, unknown>]>
+  providers: Providers
 }>
