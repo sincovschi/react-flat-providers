@@ -1,5 +1,17 @@
-import React, { PropsWithChildren } from 'react'
-import { FlatProvidersProps, Provider } from './typings'
+import React, {
+  Component,
+  ComponentClass,
+  FunctionComponent,
+  PropsWithChildren
+} from 'react'
+
+type Provider = FunctionComponent<any> | ComponentClass<any> | typeof Component
+
+type Providers = Array<Provider | [Provider, Record<string, unknown>]>
+
+type FlatProvidersProps = PropsWithChildren<{
+  providers: Providers
+}>
 
 function curryProviders(
   provider: Provider | [Provider, Record<string, unknown>]

@@ -1,12 +1,13 @@
 {
   "name": "react-flat-providers",
   "version": "1.0.0",
-  "description": "React pattern to use providers.",
+  "description": "React component to organize and flatten providers.",
   "author": "sincovschi",
   "license": "MIT",
   "repository": "sincovschi/react-flat-providers",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
+  "types": "dist/index.d.ts",
   "source": "src/index.tsx",
   "engines": {
     "node": ">=10"
