@@ -1,10 +1,13 @@
 import React from 'react'
+import { useString } from './providers/string-provider'
+import { useNumber } from './providers/number-provider'
+import { useBoolean } from './providers/boolean-provider'
 
-import { ExampleComponent } from 'react-flat-providers'
-import 'react-flat-providers/dist/index.css'
-
-const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+function App() {
+  const number = useNumber()
+  const boolean = useBoolean()
+  const string = useString()
+  return <h3>{JSON.stringify({ number, boolean, string })}</h3>
 }
 
 export default App
