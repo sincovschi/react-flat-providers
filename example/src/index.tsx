@@ -13,7 +13,7 @@ ReactDOM.render(
     <FlatProviders
       providers={[
         NumberProvider,
-        [BooleanProvider, { initialValue: true }],
+        [BooleanProvider, { test: '', initialValue: true }],
         [StringContext.Provider, { value: 'Hello world!' }]
       ]}
     >
