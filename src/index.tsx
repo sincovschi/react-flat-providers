@@ -44,6 +44,7 @@ function nestProviders(
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Providers<T = any> = Array<ProviderComponent<T> | ProviderWithProps<T>>
 
 type FlatProvidersProps = PropsWithChildren<{

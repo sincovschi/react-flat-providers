@@ -10,10 +10,10 @@ describe('react-flat-providers', (): void => {
     return <h1>{testValue}</h1>
   }
 
-  type AdvancedContextType = {
+  type AdvancedContextValue = {
     contextKey: 'defaultAdvanced' | 'expectedAdvanced'
   }
-  const AdvancedTestContext = React.createContext<AdvancedContextType>({
+  const AdvancedTestContext = React.createContext<AdvancedContextValue>({
     contextKey: 'defaultAdvanced'
   })
   const AdvancedConsumer = (): ReactElement => {
@@ -21,7 +21,7 @@ describe('react-flat-providers', (): void => {
     return <h1>{contextKey}</h1>
   }
 
-  it('wraps a given provider with given props correctly around the consuming child components.', async (): Promise<void> => {
+  it('wraps a given provider with given props correctly around the consuming child-component.', async (): Promise<void> => {
     render(
       <FlatProviders
         providers={[[TestContext.Provider, { value: 'expectedValue ' }]]}
