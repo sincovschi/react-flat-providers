@@ -1,36 +1,38 @@
 import React, {
-  Component,
-  ComponentClass,
-  FunctionComponent,
-  PropsWithChildren
+  ComponentType,
+  ComponentPropsWithoutRef,
+  PropsWithChildren,
+  ReactElement
 } from 'react'
 
-type Provider = FunctionComponent<any> | ComponentClass<any> | typeof Component
+type ProviderComponent<T> = ComponentType<T>
+type ProviderComponentProps<T> = ComponentPropsWithoutRef<ProviderComponent<T>>
 
-type Providers = Array<Provider | [Provider, Record<string, unknown>]>
-
-type FlatProvidersProps = PropsWithChildren<{
-  providers: Providers
-}>
+type ProviderWithProps<T = unknown> = [
+  ComponentType<T>,
+  ComponentPropsWithoutRef<ComponentType<T>>
+]
 
 function curryProviders(
-  provider: Provider | [Provider, Record<string, unknown>]
-): Provider {
+  provider: ProviderComponent<unknown> | ProviderWithProps
+): ProviderComponent<unknown> {
   if (!Array.isArray(provider)) {
     return provider
   }
 
   const [Component, props] = provider
 
-  return function CurriedComponent({ children }: PropsWithChildren<unknown>) {
+  return function CurriedComponent({
+    children
+  }: PropsWithChildren<unknown>): ReactElement {
     return <Component {...props}>{children}</Component>
   }
 }
 
 function nestProviders(
-  PreviousProviders: Provider,
-  CurrentProvider: Provider
-): Provider {
+  PreviousProviders: ProviderComponent<unknown>,
+  CurrentProvider: ProviderComponent<unknown>
+): ProviderComponent<unknown> {
   return function NestedProviders({
     children
   }: PropsWithChildren<unknown>): JSX.Element {
@@ -42,13 +44,28 @@ function nestProviders(
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Providers<T = any> = Array<ProviderComponent<T> | ProviderWithProps<T>>
+
+type FlatProvidersProps = PropsWithChildren<{
+  // eslint-disable-next-line @typescript-eslint/member-delimiter-style
+  providers: Providers
+}>
+
 export default function FlatProviders({
   providers,
   children
-}: FlatProvidersProps) {
+}: FlatProvidersProps): ReactElement {
   const [first, ...rest] = providers.map(curryProviders)
 
   const NestedProviders = rest.reduce(nestProviders, first)
 
   return <NestedProviders>{children}</NestedProviders>
+}
+
+export function providerFrom<T>(
+  provider: ProviderComponent<T>,
+  props: ProviderComponentProps<T>
+): ProviderWithProps<T> {
+  return [provider, props]
 }
