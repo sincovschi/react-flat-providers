@@ -51,7 +51,7 @@ npm install --save react-flat-providers
     [BooleanProvider, { initialValue: true }],
     // Even as Pair of Context.Provider and Object with key 'value'
     // Compatible with Redux-Toolkit with Object with key 'store'
-    [StringContext.Provider, { value: 'Hello world!' }]
+    [StringContext.Provider, { value: 'Hello world!' }],
   ]}
 >
   <App />
@@ -60,11 +60,11 @@ npm install --save react-flat-providers
 
 ```ts
 // A Provider can be anything that exposes a Context
-type Provider = FunctionComponent<any> | ComponentClass<any> | typeof Component
+type Provider = FunctionComponent<any> | ComponentClass<any> | typeof Component;
 
 // Passed Providers must be an Array that have as values:
 // Provider or an Array with Provider and its properties as Object
-type Providers = Array<Provider | [Provider, Record<string, unknown>]>
+type Providers = Array<Provider | [Provider, Record<string, unknown>]>;
 ```
 
 ## License
