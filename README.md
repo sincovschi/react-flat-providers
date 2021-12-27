@@ -4,6 +4,11 @@
 
 [![NPM](https://img.shields.io/npm/v/react-flat-providers.svg)](https://www.npmjs.com/package/react-flat-providers) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Usage
+
+A working example can be found following the link bellow:
+[https://stackblitz.com/edit/react-flat-providers-example](https://stackblitz.com/edit/react-flat-providers-example?file=src/index.tsx)
+
 ## Install
 
 ```bash
