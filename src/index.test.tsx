@@ -1,6 +1,7 @@
-import FlatProviders, { providerFrom } from './';
-import React, { FunctionComponent, ReactElement, useContext } from 'react';
 import { render, screen } from '@testing-library/react';
+import React, { PropsWithChildren, ReactElement, useContext } from 'react';
+import FlatProviders from './';
+import { makeProvider } from './helpers/make-provider';
 
 describe('react-flat-providers', (): void => {
   type TestContextValue = 'defaultValue' | 'expectedValue';
@@ -53,12 +54,12 @@ describe('react-flat-providers', (): void => {
     expect(screen.getByText('expectedAdvanced')).not.toBeNull();
   });
 
-  it('renders providers built with "providerFrom()".', async (): Promise<void> => {
+  it('renders providers built with function.', async (): Promise<void> => {
     render(
       <FlatProviders
         providers={[
-          providerFrom(TestContext.Provider, { value: 'expectedValue' }),
-          providerFrom(AdvancedTestContext.Provider, {
+          makeProvider(TestContext.Provider, { value: 'expectedValue' }),
+          makeProvider(AdvancedTestContext.Provider, {
             value: { contextKey: 'expectedAdvanced' },
           }),
         ]}
@@ -73,11 +74,16 @@ describe('react-flat-providers', (): void => {
   });
 
   it('allows to pass a Provider without props.', async (): Promise<void> => {
-    const ProviderComponent: FunctionComponent = ({ children }) => (
-      <TestContext.Provider value='expectedValue'>
-        {children}
-      </TestContext.Provider>
-    );
+    function ProviderComponent({
+      children,
+    }: PropsWithChildren<unknown>): JSX.Element {
+      return (
+        <TestContext.Provider value='expectedValue'>
+          {children}
+        </TestContext.Provider>
+      );
+    }
+
     render(
       <FlatProviders providers={[ProviderComponent]}>
         <ContextConsumer />

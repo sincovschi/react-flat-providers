@@ -1,71 +1,24 @@
-import React, {
-  ComponentType,
-  ComponentPropsWithoutRef,
-  PropsWithChildren,
-  ReactElement,
-} from 'react';
-
-type ProviderComponent<T> = ComponentType<T>;
-type ProviderComponentProps<T> = ComponentPropsWithoutRef<ProviderComponent<T>>;
-
-type ProviderWithProps<T = unknown> = [
-  ComponentType<T>,
-  ComponentPropsWithoutRef<ComponentType<T>>,
-];
-
-function curryProviders(
-  provider: ProviderComponent<unknown> | ProviderWithProps,
-): ProviderComponent<unknown> {
-  if (!Array.isArray(provider)) {
-    return provider;
-  }
-
-  const [Component, props] = provider;
-
-  return function CurriedComponent({
-    children,
-  }: PropsWithChildren<unknown>): ReactElement {
-    return <Component {...props}>{children}</Component>;
-  };
-}
-
-function nestProviders(
-  PreviousProviders: ProviderComponent<unknown>,
-  CurrentProvider: ProviderComponent<unknown>,
-): ProviderComponent<unknown> {
-  return function NestedProviders({
-    children,
-  }: PropsWithChildren<unknown>): JSX.Element {
-    return (
-      <PreviousProviders>
-        <CurrentProvider>{children}</CurrentProvider>
-      </PreviousProviders>
-    );
-  };
-}
+import React, { PropsWithChildren, ReactElement } from 'react';
+import { nestProviders } from './aggregators/nest-providers';
+import { unWrapTupleProvider } from './aggregators/unwrap-tuple-providers';
+import { ProviderComponent, TupleProviderWithProps } from './types/provider';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Providers<T = any> = Array<ProviderComponent<T> | ProviderWithProps<T>>;
-
-type FlatProvidersProps = PropsWithChildren<{
-  // eslint-disable-next-line @typescript-eslint/member-delimiter-style
-  providers: Providers;
-}>;
+export type Providers<T = any> = Array<
+  ProviderComponent<T> | TupleProviderWithProps<T>
+>;
 
 export default function FlatProviders({
   providers,
   children,
-}: FlatProvidersProps): ReactElement {
-  const [first, ...rest] = providers.map(curryProviders);
+}: PropsWithChildren<{
+  providers: Providers;
+}>): ReactElement {
+  const unWrappedProviders = providers.map(unWrapTupleProvider);
 
-  const NestedProviders = rest.reduce(nestProviders, first);
+  const NestedProviders = unWrappedProviders.reduce(nestProviders);
 
   return <NestedProviders>{children}</NestedProviders>;
 }
 
-export function providerFrom<T>(
-  provider: ProviderComponent<T>,
-  props: ProviderComponentProps<T>,
-): ProviderWithProps<T> {
-  return [provider, props];
-}
+export * from './helpers/make-provider';
