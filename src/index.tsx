@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, ReactElement } from 'react';
 import { nestProviders } from './aggregators/nest-providers';
-import { unWrapTupleProvider } from './aggregators/unwrap-tuple-providers';
+import { unwrapTupleProvider } from './aggregators/unwrap-tuple-providers';
 import { ProviderComponent, TupleProviderWithProps } from './types/provider';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,15 +8,15 @@ export type Providers<T = any> = Array<
   ProviderComponent<T> | TupleProviderWithProps<T>
 >;
 
-export default function FlatProviders({
+export function FlatProviders({
   providers,
   children,
 }: PropsWithChildren<{
   providers: Providers;
 }>): ReactElement {
-  const unWrappedProviders = providers.map(unWrapTupleProvider);
+  const unwrappedProviders = providers.map(unwrapTupleProvider);
 
-  const NestedProviders = unWrappedProviders.reduce(nestProviders);
+  const NestedProviders = unwrappedProviders.reduce(nestProviders);
 
   return <NestedProviders>{children}</NestedProviders>;
 }
