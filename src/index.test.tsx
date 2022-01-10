@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React, { PropsWithChildren, ReactElement, useContext } from 'react';
-import FlatProviders from './';
+import { FlatProviders } from './';
 import { makeProvider } from './helpers/make-provider';
 
 describe('react-flat-providers', (): void => {
