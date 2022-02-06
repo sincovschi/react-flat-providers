@@ -4,6 +4,15 @@
   "description": "React component to organize and flatten providers.",
   "author": "sincovschi",
   "license": "MIT",
+  "contributors": [
+    {
+      "name": "sincovschi"
+    },
+    {
+      "name": "David Losert",
+      "email": "david@david-losert.com"
+    }
+  ],
   "repository": "sincovschi/react-flat-providers",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
