@@ -2,7 +2,7 @@
 
 > React component to organize and flatten providers.
 
-[![NPM](https://img.shields.io/npm/v/react-flat-providers.svg)](https://www.npmjs.com/package/react-flat-providers) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-flat-providers.svg)](https://www.npmjs.com/package/react-flat-providers)
 
 ## Install
 
@@ -72,7 +72,7 @@ A full working example can be found following the link below:
 
 ```tsx
 /**
- * Please check /example/src/index.tsx and imported providers
+ * Please check https://stackblitz.com/edit/react-flat-providers-example?file=src/index.tsx
  * to see how to use FlatProviders more detailed.
  * */
 
@@ -91,13 +91,30 @@ A full working example can be found following the link below:
 </FlatProviders>
 ```
 
-```ts
-// A Provider can be anything that exposes a Context
-type Provider = FunctionComponent<any> | ComponentClass<any> | typeof Component;
+### To enforce type safety, we encourage usage of the next helpers
 
-// Passed Providers must be an Array that have as values:
-// Provider or an Array with Provider and its properties as Object
-type Providers = Array<Provider | [Provider, Record<string, unknown>]>;
+```ts
+<FlatProviders
+  providers={[
+    // import `makeProvider` to infer props type from frovider
+    makeProvider(BooleanProvider, { initialValue: true }),
+  ]}
+>
+  <App />
+</FlatProviders>
+```
+
+```ts
+// to have only one import and lower level of indentation
+// this hook can be used to build flat chained version
+const FlatChainedProviders = useChainProviders()
+  .add(NumberProvider)
+  .add(BooleanProvider, { initialValue: true })
+  .make();
+
+<FlatChainedProviders>
+  <App />
+</FlatChainedProviders>
 ```
 
 ## License
