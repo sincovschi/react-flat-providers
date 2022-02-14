@@ -8,11 +8,11 @@ export function unwrapTupleProvider(
     return tuple;
   }
 
-  const [Component, props] = tuple;
+  const [Provider, props] = tuple;
 
   return function ProviderWithProps({
     children,
   }: PropsWithChildren<unknown>): ReactElement {
-    return <Component {...props}>{children}</Component>;
+    return <Provider {...props}>{children}</Provider>;
   };
 }
