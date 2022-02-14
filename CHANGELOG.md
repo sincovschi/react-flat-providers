@@ -1,3 +1,23 @@
+# [2.0.0](https://github.com/sincovschi/react-flat-providers/compare/v1.0.1...v2.0.0) (2022-02-14)
+
+
+### Continuous Integration
+
+* :rocket: update release.yml key names ([d44af5a](https://github.com/sincovschi/react-flat-providers/commit/d44af5aa74e9f2dddb1cc26e2433bc03f593554e))
+
+
+### Features
+
+* :wastebasket: move example to stackblitz ([8519f3c](https://github.com/sincovschi/react-flat-providers/commit/8519f3cbb7611e3d00fad0e435d43df4db636c1b))
+* Adds github workflows and semantic release ([edeef8c](https://github.com/sincovschi/react-flat-providers/commit/edeef8ca5fc71306038c763add2f66a473e037f9))
+* removed export default and improved function names ([ec0d360](https://github.com/sincovschi/react-flat-providers/commit/ec0d36001d401c58b6cfa592c741eb8cd1737a74))
+* Updates all dependencies, adjusts types and adds a `buildFrom` method for typesafety ([b54c99f](https://github.com/sincovschi/react-flat-providers/commit/b54c99fe55d02d529fb916b2dda9e1d817a8a9a2))
+
+
+### BREAKING CHANGES
+
+* First major release with github actions.
+
 # 1.0.0 (2021-04-15)
 
 ### Features
