@@ -1,27 +1,27 @@
 import { render, screen } from '@testing-library/react';
 import React, { PropsWithChildren, ReactElement, useContext } from 'react';
-import { FlatProviders } from './';
+import { FlatProviders, useChainProviders } from './';
 import { makeProvider } from './helpers/make-provider';
 
+type TestContextValue = 'defaultValue' | 'expectedValue';
+const TestContext = React.createContext<TestContextValue>('defaultValue');
+const ContextConsumer = (): ReactElement => {
+  const testValue = useContext(TestContext);
+  return <h1>{testValue}</h1>;
+};
+
+type AdvancedContextValue = {
+  contextKey: 'defaultAdvanced' | 'expectedAdvanced';
+};
+const AdvancedTestContext = React.createContext<AdvancedContextValue>({
+  contextKey: 'defaultAdvanced',
+});
+const AdvancedConsumer = (): ReactElement => {
+  const { contextKey } = useContext(AdvancedTestContext);
+  return <h1>{contextKey}</h1>;
+};
+
 describe('react-flat-providers', (): void => {
-  type TestContextValue = 'defaultValue' | 'expectedValue';
-  const TestContext = React.createContext<TestContextValue>('defaultValue');
-  const ContextConsumer = (): ReactElement => {
-    const testValue = useContext(TestContext);
-    return <h1>{testValue}</h1>;
-  };
-
-  type AdvancedContextValue = {
-    contextKey: 'defaultAdvanced' | 'expectedAdvanced';
-  };
-  const AdvancedTestContext = React.createContext<AdvancedContextValue>({
-    contextKey: 'defaultAdvanced',
-  });
-  const AdvancedConsumer = (): ReactElement => {
-    const { contextKey } = useContext(AdvancedTestContext);
-    return <h1>{contextKey}</h1>;
-  };
-
   it('wraps a given provider with given props correctly around the consuming child-component.', async (): Promise<void> => {
     render(
       <FlatProviders
@@ -31,7 +31,7 @@ describe('react-flat-providers', (): void => {
       </FlatProviders>,
     );
 
-    expect(screen.getByText('expectedValue')).not.toBeNull();
+    expect(screen.getByText('expectedValue')).toBeTruthy();
   });
 
   it('wraps multiple providers correctly around the consuming children.', async (): Promise<void> => {
@@ -50,8 +50,8 @@ describe('react-flat-providers', (): void => {
       </FlatProviders>,
     );
 
-    expect(screen.getByText('expectedValue')).not.toBeNull();
-    expect(screen.getByText('expectedAdvanced')).not.toBeNull();
+    expect(screen.getByText('expectedValue')).toBeTruthy();
+    expect(screen.getByText('expectedAdvanced')).toBeTruthy();
   });
 
   it('renders providers built with function.', async (): Promise<void> => {
@@ -69,8 +69,8 @@ describe('react-flat-providers', (): void => {
       </FlatProviders>,
     );
 
-    expect(screen.getByText('expectedValue')).not.toBeNull();
-    expect(screen.getByText('expectedAdvanced')).not.toBeNull();
+    expect(screen.getByText('expectedValue')).toBeTruthy();
+    expect(screen.getByText('expectedAdvanced')).toBeTruthy();
   });
 
   it('allows to pass a Provider without props.', async (): Promise<void> => {
@@ -90,7 +90,7 @@ describe('react-flat-providers', (): void => {
       </FlatProviders>,
     );
 
-    expect(screen.getByText('expectedValue')).not.toBeNull();
+    expect(screen.getByText('expectedValue')).toBeTruthy();
   });
 
   it('allows passing simple components as well and renders those.', async (): Promise<void> => {
@@ -100,6 +100,25 @@ describe('react-flat-providers', (): void => {
       />,
     );
 
-    expect(screen.getByTestId('first')).not.toBeNull();
+    expect(screen.getByTestId('first')).toBeTruthy();
+  });
+
+  it('chain providers and renders context value.', async (): Promise<void> => {
+    const FlatChainProviders = useChainProviders()
+      .add(TestContext.Provider, { value: 'expectedValue' })
+      .add(AdvancedTestContext.Provider, {
+        value: { contextKey: 'expectedAdvanced' },
+      })
+      .make();
+
+    render(
+      <FlatChainProviders>
+        <ContextConsumer />
+        <AdvancedConsumer />
+      </FlatChainProviders>,
+    );
+
+    expect(screen.getByText('expectedValue')).toBeTruthy();
+    expect(screen.getByText('expectedAdvanced')).toBeTruthy();
   });
 });
