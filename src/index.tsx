@@ -21,4 +21,5 @@ export function FlatProviders({
   return <NestedProviders>{children}</NestedProviders>;
 }
 
+export * from './helpers/chain-providers';
 export * from './helpers/make-provider';
