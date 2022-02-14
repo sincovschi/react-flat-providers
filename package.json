@@ -1,6 +1,6 @@
 {
   "name": "react-flat-providers",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "React component to organize and flatten providers.",
   "author": "sincovschi",
   "license": "MIT",
@@ -23,7 +23,8 @@
   "keywords": [
     "react",
     "context",
-    "provider"
+    "provider",
+    "flat"
   ],
   "engines": {
     "node": ">=16"

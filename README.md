@@ -7,6 +7,7 @@
 ## Usage
 
 A working example can be found following the link bellow:
+
 [https://stackblitz.com/edit/react-flat-providers-example](https://stackblitz.com/edit/react-flat-providers-example?file=src/index.tsx)
 
 ## Install
