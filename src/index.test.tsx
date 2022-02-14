@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React, { PropsWithChildren, ReactElement, useContext } from 'react';
-import { FlatProviders, useChainProviders } from './';
-import { makeProvider } from './helpers/make-provider';
+import { FlatProviders, useChainProviders, makeProvider } from './';
 
 type TestContextValue = 'defaultValue' | 'expectedValue';
 const TestContext = React.createContext<TestContextValue>('defaultValue');
