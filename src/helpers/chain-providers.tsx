@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatProviders, Providers } from '..';
+import { FlatProviders, Providers } from '../core/flat-providers';
 import { ProviderComponent, ProviderComponentProps } from '../types/provider';
 
 export function useChainProviders() {
