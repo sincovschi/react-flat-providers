@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/sincovschi/react-flat-providers/compare/v2.0.0...v2.1.0) (2022-03-12)
+
+
+### Bug Fixes
+
+* extract flat-providers into core folder to exclude circular dependency ([9810e97](https://github.com/sincovschi/react-flat-providers/commit/9810e97aac522016044e99195164fdc257505594))
+
+
+### Features
+
+* add chain providers helper ([c6c433e](https://github.com/sincovschi/react-flat-providers/commit/c6c433e632946502477e10edbc0cffd4e8ea6c6f))
+
 # [2.0.0](https://github.com/sincovschi/react-flat-providers/compare/v1.0.1...v2.0.0) (2022-02-14)
 
 
