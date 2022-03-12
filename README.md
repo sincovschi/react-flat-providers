@@ -4,17 +4,49 @@
 
 [![NPM](https://img.shields.io/npm/v/react-flat-providers.svg)](https://www.npmjs.com/package/react-flat-providers) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-## Usage
-
-A working example can be found following the link bellow:
-
-[https://stackblitz.com/edit/react-flat-providers-example](https://stackblitz.com/edit/react-flat-providers-example?file=src/index.tsx)
-
 ## Install
 
 ```bash
 npm install --save react-flat-providers
 ```
+
+## Usage
+
+Just use the `FlatProviders`-Component and pass it an Array of your Providers and their Props:
+
+```tsx
+import { FlatProviders } from 'react-flat-providers';
+// ...
+
+    <FlatProviders
+      providers={[
+        ProviderWithoutProps,
+        [ProviderWithProps, { providerProps: 'propsValue' }],
+      ]}
+    >
+      <App />
+    </FlatProviders>
+```
+
+### Type-Safe Props
+
+If you are using `TypeScript` and you want type-safety for your Providers' props, you can use the provided `makeProvider` function:
+
+```tsx
+import { FlatProviders, makeProvider } from 'react-flat-providers';
+
+    <FlatProviders
+      providers={[
+        makeProvider(ProviderWithProps, { providerProps: 'typeSafe'}),
+      ]}
+    >
+```
+
+### Example
+
+A full working example can be found following the link below:
+
+[https://stackblitz.com/edit/react-flat-providers-example](https://stackblitz.com/edit/react-flat-providers-example?file=src/index.tsx)
 
 ## Why
 
