@@ -18,28 +18,41 @@ Just use the `FlatProviders`-Component and pass it an Array of your Providers an
 import { FlatProviders } from 'react-flat-providers';
 // ...
 
-    <FlatProviders
-      providers={[
-        ProviderWithoutProps,
-        [ProviderWithProps, { providerProps: 'propsValue' }],
-      ]}
-    >
-      <App />
-    </FlatProviders>
+<FlatProviders
+  providers={[
+    ProviderWithoutProps,
+    [ProviderWithProps, { providerProps: 'propsValue' }],
+  ]}
+>
+  <App />
+</FlatProviders>
 ```
 
 ### Type-Safe Props
 
-If you are using `TypeScript` and you want type-safety for your Providers' props, you can use the provided `makeProvider` function:
+If you are using `TypeScript` and you want type-safety for your Providers' props, you can use the provided `makeProvider` function or `useChainProviders` hook:
 
 ```tsx
 import { FlatProviders, makeProvider } from 'react-flat-providers';
 
-    <FlatProviders
-      providers={[
-        makeProvider(ProviderWithProps, { providerProps: 'typeSafe'}),
-      ]}
-    >
+<FlatProviders
+  providers={[
+    makeProvider(ProviderWithProps, { providerProps: 'typeSafe'}),
+  ]}
+>
+```
+
+```tsx
+import { useChainProviders } from 'react-flat-providers';
+
+const FlatChainedProviders = useChainProviders()
+  .add(NumberProvider)
+  .add(BooleanProvider, { initialValue: true })
+  .make();
+
+<FlatChainedProviders>
+  <App />
+</FlatChainedProviders>
 ```
 
 ### Example
@@ -68,54 +81,6 @@ A full working example can be found following the link below:
 </NumberProvider>
 ```
 
-## Solution
-
-```tsx
-/**
- * Please check https://stackblitz.com/edit/react-flat-providers-example?file=src/index.tsx
- * to see how to use FlatProviders more detailed.
- * */
-
-<FlatProviders
-  providers={[
-    // Can pass directly as FunctionComponent
-    NumberProvider,
-    // Can pass as Pair of Component and Object with parameters
-    [BooleanProvider, { initialValue: true }],
-    // Even as Pair of Context.Provider and Object with key 'value'
-    // Compatible with Redux-Toolkit with Object with key 'store'
-    [StringContext.Provider, { value: 'Hello world!' }],
-  ]}
->
-  <App />
-</FlatProviders>
-```
-
-### To enforce type safety, we encourage usage of the next helpers
-
-```ts
-<FlatProviders
-  providers={[
-    // import `makeProvider` to infer props type from frovider
-    makeProvider(BooleanProvider, { initialValue: true }),
-  ]}
->
-  <App />
-</FlatProviders>
-```
-
-```ts
-// to have only one import and lower level of indentation
-// this hook can be used to build flat chained version
-const FlatChainedProviders = useChainProviders()
-  .add(NumberProvider)
-  .add(BooleanProvider, { initialValue: true })
-  .make();
-
-<FlatChainedProviders>
-  <App />
-</FlatChainedProviders>
-```
 
 ## License
 
