@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { FlatProviders, Providers } from '../core/flat-providers';
 import { ProviderComponent, ProviderComponentProps } from '../types/provider';
 
@@ -18,7 +18,9 @@ export function useChainProviders() {
      * Must be called once at the end of the Providers Chain.
      */
     make() {
-      const ChainedFlatProviders: React.FunctionComponent = ({ children }) => {
+      const ChainedFlatProviders: React.ComponentType<
+        PropsWithChildren
+      > = ({ children }) => {
         return <FlatProviders providers={providers}>{children}</FlatProviders>;
       };
 

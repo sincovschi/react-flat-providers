@@ -2,12 +2,12 @@ import React, { PropsWithChildren } from 'react';
 import { ProviderComponent } from '../types/provider';
 
 export function nestProviders(
-  PreviousProviders: ProviderComponent<unknown>,
-  CurrentProvider: ProviderComponent<unknown>,
-): ProviderComponent<unknown> {
+  PreviousProviders: ProviderComponent<object>,
+  CurrentProvider: ProviderComponent<object>,
+): ProviderComponent<object> {
   return function NestedProviders({
     children,
-  }: PropsWithChildren<unknown>): JSX.Element {
+  }: PropsWithChildren<object>): JSX.Element {
     return (
       <PreviousProviders>
         <CurrentProvider>{children}</CurrentProvider>

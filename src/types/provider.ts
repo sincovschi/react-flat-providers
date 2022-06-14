@@ -6,7 +6,7 @@ export type ProviderComponentProps<T> = ComponentPropsWithoutRef<
   ProviderComponent<T>
 >;
 
-export type TupleProviderWithProps<T = unknown> = [
+export type TupleProviderWithProps<T = object> = [
   ComponentType<T>,
-  ComponentPropsWithoutRef<ComponentType<T>>,
+  ProviderComponentProps<T>,
 ];
