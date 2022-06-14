@@ -16,7 +16,8 @@ export function FlatProviders({
 }>): ReactElement {
   const unwrappedProviders = providers.map(unwrapTupleProvider);
 
-  const NestedProviders = unwrappedProviders.reduce(nestProviders);
+  const NestedProviders: ProviderComponent<object> =
+    unwrappedProviders.reduce(nestProviders);
 
   return <NestedProviders>{children}</NestedProviders>;
 }
