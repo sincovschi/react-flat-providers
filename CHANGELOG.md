@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/sincovschi/react-flat-providers/compare/v2.1.0...v2.2.0) (2022-10-23)
+
+
+### Features
+
+* add changelog commit as feat to force react 18 support to npm ([c736ee6](https://github.com/sincovschi/react-flat-providers/commit/c736ee67f9ac6ace5d56582bd9a04cdc708dff81))
+
 #### 2.2.0 (2022-10-23)
 
 ##### Chores
