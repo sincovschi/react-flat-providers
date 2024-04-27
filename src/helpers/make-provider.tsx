@@ -6,7 +6,7 @@ import {
 
 export function makeProvider<T>(
   provider: ProviderComponent<T>,
-  props: ProviderComponentProps<T>,
+  props?: Omit<ProviderComponentProps<T>, "children">,
 ): TupleProviderWithProps<T> {
   return [provider, props];
 }
